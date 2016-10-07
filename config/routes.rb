@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  jsonapi_resources :projects
+  namespace :api do
+    jsonapi_resources :projects
+  end
 end
