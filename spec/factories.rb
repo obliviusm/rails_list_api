@@ -7,4 +7,9 @@ FactoryGirl.define do
     founders Faker::StarWars.character
     category Faker::Book.genre
   end
+
+  factory :user do
+    email Faker::Internet.email
+    password "secret123"
+  end
 end
