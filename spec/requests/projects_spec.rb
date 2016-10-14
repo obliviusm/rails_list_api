@@ -1,12 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe "Projects", :type => :request do
+
   describe "GET /api/projects" do
     it "returns all projects" do
       FactoryGirl.create :project, title: 'Github'
       FactoryGirl.create :project, title: 'Intercom'
 
-      get '/api/projects', headers: {'ACCEPT' => "application/vnd.api+json"}
+      get '/api/projects', headers: {'Accept' => "application/vnd.api+json"}
+
       expect(response.status).to eq 200
 
       body = JSON.parse(response.body)
@@ -25,7 +27,7 @@ RSpec.describe "Projects", :type => :request do
             founders: 'Eoghan McCabe, Des Traynor, Ciaran Lee, & David Barrett',
             headquarters: 'San Francisco',
             category: 'Analytics',
-            foundedAt: '2011',
+            "founded-at": '2011',
             image: 'https://rails-apps.com/uploads/app/screenshot/500/screenshot.png'
           }
         }
@@ -34,10 +36,9 @@ RSpec.describe "Projects", :type => :request do
       post '/api/projects',
         params: project.to_json,
         headers: {
-          'CONTENT-TYPE': 'application/vnd.api+json',
-          'ACCEPT' => "application/vnd.api+json"
+          'Accept': 'application/vnd.api+json',
+          'Content-Type': 'application/vnd.api+json'
         }
-
       expect(response.status).to eq 201
 
       body = JSON.parse(response.body)
