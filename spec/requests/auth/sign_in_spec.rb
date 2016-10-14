@@ -4,7 +4,7 @@ RSpec.describe "Auth/Sign in", :type => :request do
   describe "POST /api/auth/sign_in" do
     it "returns user and token" do
       user = FactoryGirl.create :user, email: "user@email.com", password: "123secret"
-      # auth_headers = user.create_new_auth_token
+      
       user_json = {
         email: user.email,
         password: "123secret"
