@@ -39,10 +39,12 @@ RSpec.describe "Projects", :type => :request do
           'Accept': 'application/vnd.api+json',
           'Content-Type': 'application/vnd.api+json'
         }
+        body = JSON.parse(response.body)
+        p body
       expect(response.status).to eq 201
 
       body = JSON.parse(response.body)
-
+      p body
       project_name = body['data']['attributes']['title']
       expect(project_name) == 'Intercom'
     end
