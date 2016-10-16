@@ -2,12 +2,21 @@ require 'rails_helper'
 
 RSpec.describe "Projects", :type => :request do
 
+  before do
+    @user = FactoryGirl.create :user, email: "user@email.com", password: "123secret"
+    @auth_headers = @user.create_new_auth_token
+
+    @token     = @auth_headers['access-token']
+    @client_id = @auth_headers['client']
+    @expiry    = @auth_headers['expiry']
+  end
+
   describe "GET /api/projects" do
     it "returns all projects" do
       FactoryGirl.create :project, title: 'Github'
       FactoryGirl.create :project, title: 'Intercom'
 
-      get '/api/projects', headers: {'Accept' => "application/vnd.api+json"}
+      get '/api/projects', headers: {'Accept' => "application/vnd.api+json"}.merge(@auth_headers)
 
       expect(response.status).to eq 200
 
@@ -38,13 +47,10 @@ RSpec.describe "Projects", :type => :request do
         headers: {
           'Accept': 'application/vnd.api+json',
           'Content-Type': 'application/vnd.api+json'
-        }
-        body = JSON.parse(response.body)
-        p body
+        }.merge(@auth_headers)
       expect(response.status).to eq 201
 
       body = JSON.parse(response.body)
-      p body
       project_name = body['data']['attributes']['title']
       expect(project_name) == 'Intercom'
     end
