@@ -13,8 +13,9 @@ RSpec.describe "Projects", :type => :request do
 
   describe "GET /api/projects" do
     it "returns all projects" do
-      FactoryGirl.create :project, title: 'Github'
-      FactoryGirl.create :project, title: 'Intercom'
+      FactoryGirl.create :project, title: 'Github', user: @user
+      FactoryGirl.create :project, title: 'Intercom', user: @user
+      FactoryGirl.create :project, title: 'Uber'
 
       get '/api/projects', headers: {'Accept' => "application/vnd.api+json"}.merge(@auth_headers)
 
