@@ -51,6 +51,7 @@ RSpec.describe "Projects", :type => :request do
       expect(response.status).to eq 201
 
       body = JSON.parse(response.body)
+      p body['data']
       project_name = body['data']['attributes']['title']
       expect(project_name) == 'Intercom'
     end
