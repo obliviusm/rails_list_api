@@ -38,7 +38,8 @@ RSpec.describe "Projects", :type => :request do
             headquarters: 'San Francisco',
             category: 'Analytics',
             "founded-at": '2011',
-            image: 'https://rails-apps.com/uploads/app/screenshot/500/screenshot.png'
+            image: 'https://rails-apps.com/uploads/app/screenshot/500/screenshot.png',
+            "user-email": "email"
           }
         }
       }
@@ -52,7 +53,7 @@ RSpec.describe "Projects", :type => :request do
       expect(response.status).to eq 201
 
       body = JSON.parse(response.body)
-      p body['data']
+      # p body['data']
       project_name = body['data']['attributes']['title']
       expect(project_name) == 'Intercom'
     end
