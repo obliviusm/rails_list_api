@@ -4,7 +4,11 @@ module Api
     before_action :authenticate_user!
 
     def context
-      {current_user: current_user}
+      if ['update', 'create'].include? action_name
+        {current_user: current_user}
+      else
+        {}
+      end
     end
   end
 end
